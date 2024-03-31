@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Update Books
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center my-5">📚Update Book📚</h1>
+<div class="container">
+    <a href="{{ url_for('home') }}" class="btn mb-3 btn-outline-info">Go to Home</a>
+    <form id="update-by-id" action="/update" method="post">
+        <label for="book_id" class="form-label">Enter Book ID to update:</label>
+        <input type="number" class="form-control" name="book_id_h" id="book_id" required
+            value="{{ book_id if book_id }}" placeholder="ID of the book">
+        <button type="submit" class="btn mt-3 btn-outline-success">Get Book</button>
+    </form>
+    <div id="response-table">
+        {% if details %}
+        <table class="table table-dark table-striped table-bordered mt-4 text-center">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Book Title</th>
+                    <th scope="col">Author</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">{{details[0]}}</th>
+                    <td>{{details[1]}}</td>
+                    <td>{{details[2]}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <form action="/update" method="POST">
+            <div class="mb-3">
+                <label for="book_title" class="form-label">Title</label>
+                <input type="text" class="form-control" name="book_title" id="book_title"
+                    placeholder="Title of the book" value="{{ details[1] if details }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="book_author" class="form-label">Author</label>
+                <input type="text" class="form-control" name="book_author" id="book_author"
+                    placeholder="Author of the book" value="{{ details[2] if details }}">
+            </div>
+            <input type="hidden" name="book_id" value="{{ book_id }}">
+            <button type="submit" class="btn mt-3 btn-outline-success">Update Book</button>
+        </form>
+        {% else %}
+        <div class="container m-3" id="no-details">
+            <h4>No books found...</h4>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+{% if details %}
+<!-- <script>
+            document.querySelector("#update-by-id button").setAttribute("hidden", "")
+        </script> -->
+{% endif %}
+{% endblock %}

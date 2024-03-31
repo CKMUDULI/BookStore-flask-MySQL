@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Delete Books
+{% endblock %}
+
+{% block content %}
+    <h1 class="text-center my-5">📚Delete Book📚</h1>
+    <div class="container">
+        <a href="{{ url_for('home') }}" class="btn mb-3 btn-outline-info">Go to Home</a>
+        <ul class="nav nav-tabs mb-3 mt-2" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#tab-pane-1" type="button"
+                    role="tab" aria-controls="tab-pane-1" aria-selected="true">Delete Book by ID</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab-2" data-bs-toggle="tab" data-bs-target="#tab-pane-2" type="button"
+                    role="tab" aria-controls="tab-pane-2" aria-selected="false">Delete Book by Title</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#tab-pane-3" type="button"
+                    role="tab" aria-controls="tab-pane-3" aria-selected="false">Delete Book by Author Name</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active container" id="tab-pane-1" role="tabpanel" aria-labelledby="tab-pane-1" tabindex="0">
+                <form id="del-by-id" action="/delete" method="post">
+                    <label for="book_id" class="form-label">Enter Book ID:</label>
+                    <input type="number" class="form-control" name="book_id" id="book_id" required>
+                    <button type="submit" class="btn mt-3 btn-outline-danger">Delete Book</button>
+                </form>
+            </div>
+            <div class="tab-pane fade container" id="tab-pane-2" role="tabpanel" aria-labelledby="tab-pane-2" tabindex="0">
+                <form id="del-by-title" action="/delete" method="post">
+                    <label for="book_title" class="form-label">Enter Book Title:</label>
+                    <input type="text" class="form-control" name="book_title" id="book_title" required>
+                    <button type="submit" class="btn mt-3 btn-outline-danger">Delete Book</button>
+                </form>
+            </div>
+            <div class="tab-pane fade container" id="tab-pane-3" role="tabpanel" aria-labelledby="tab-pane-3" tabindex="0">
+                <form id="del-by-author" action="/delete" method="post">
+                    <label for="book_author" class="form-label">Enter Author Name:</label>
+                    <input type="text" class="form-control" name="book_author" id="book_author" required>
+                    <button type="submit" class="btn mt-3 btn-outline-danger">Delete Book</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        const triggerTabList = document.querySelectorAll('#myTab button')
+        triggerTabList.forEach(triggerEl => {
+            const tabTrigger = new bootstrap.Tab(triggerEl)
+
+            triggerEl.addEventListener('click', event => {
+                event.preventDefault()
+                tabTrigger.show()
+            })
+        })
+    </script>
+{% endblock %}
